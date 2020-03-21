@@ -1,24 +1,19 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from "@angular/core";
 
 @Pipe({
-  name: 'formatTimer'
+  name: "formatTimer"
 })
 export class FormatTimerPipe implements PipeTransform {
-
   transform(value: any, args?: any): any {
     let minutes = Math.floor(value / 60);
     let seconds = value % 60;
-    let minutesString: string;
-    let secondsString: string;
+    let mm = `${this.isLessThanTen(minutes)}${minutes}`;
+    let ss = `${this.isLessThanTen(seconds)}${seconds}`;
 
-    minutesString = `${this.isLessThanTen(minutes)}${minutes}`;
-    secondsString = `${this.isLessThanTen(seconds)}${seconds}`;
-
-    return `${minutesString}:${secondsString}`;
+    return `${mm}:${ss}`;
   }
 
   private isLessThanTen(value: number) {
-    return value < 10 ? "0": "";
+    return value < 10 ? "0" : "";
   }
-
 }
