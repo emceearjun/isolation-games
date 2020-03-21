@@ -6,15 +6,13 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./timer.component.scss"]
 })
 export class TimerComponent implements OnInit {
-  protected elapsedTime = 0;
-  
+  elapsedTime = 0;
+
   private timerHandle: any;
 
   constructor() {}
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
 
   public start() {
     this.timerHandle = setInterval(() => {
