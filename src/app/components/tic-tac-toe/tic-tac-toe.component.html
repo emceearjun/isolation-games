@@ -1,0 +1,23 @@
+<div class="info">
+  <div class="timer"><app-timer #timer></app-timer></div>
+  <div class="current-turn" *ngIf="!gameOver">
+    Current Turn: {{ currentTurn }}
+  </div>
+  <div class="winner" *ngIf="gameOver && winner">Winner: {{ winner }}</div>
+  <div class="draw" *ngIf="gameOver && !winner">
+    Draw!
+  </div>
+  <button (click)="reset()">Reset</button>
+</div>
+<div class="container">
+  <div class="tic-tac-toe">
+    <div
+      *ngFor="let value of boxModel; let pos = index"
+      class="box"
+      (click)="play(pos)"
+    >
+      <span *ngIf="value === null"></span>
+      <span class="box-value" *ngIf="value !== null">{{ value }}</span>
+    </div>
+  </div>
+</div>

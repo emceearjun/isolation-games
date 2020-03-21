@@ -1,0 +1,63 @@
+$board-height: 240px;
+$board-width: 240px;
+
+.info {
+  text-align: center;
+
+  button {
+    width: 200px;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    background: slateblue;
+    border: 0;
+    color: white;
+    transition: background 0.3s linear;
+
+    &:hover {
+      cursor: pointer;
+      background: darken($color: slateblue, $amount: 8);
+    }
+  }
+
+  .current-turn,
+  .winner,
+  .draw {
+    font-size: 3rem;
+    font-weight: bold;
+  }
+
+  & > * {
+    margin-top: 10px;
+  }
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  .tic-tac-toe {
+    height: $board-height;
+    width: $board-width;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    .box {
+      border: 1px solid darkslategray;
+      position: relative;
+      &:focus {
+        background-color: lightgrey;
+      }
+      &:hover {
+        cursor: pointer;
+      }
+
+      .box-value {
+        position: absolute;
+        font-size: 64px;
+        font-weight: bold;
+        width: 100%;
+        text-align: center;
+        user-select: none;
+      }
+    }
+  }
+}
