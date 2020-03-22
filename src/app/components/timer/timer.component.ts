@@ -15,9 +15,7 @@ export class TimerComponent implements OnInit {
   ngOnInit() {}
 
   public start() {
-    this.timerHandle = setInterval(() => {
-      this.elapsedTime += 1;
-    }, 1000);
+    this.timerHandle = setInterval(this.incrementTimer, 1000);
   }
 
   public stop() {
@@ -29,4 +27,8 @@ export class TimerComponent implements OnInit {
     this.elapsedTime = 0;
     this.start();
   }
+
+  private incrementTimer = () => {
+    this.elapsedTime += 1;
+  };
 }
