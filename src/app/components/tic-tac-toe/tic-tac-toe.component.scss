@@ -57,6 +57,11 @@ $board-width: 240px;
         width: 100%;
         text-align: center;
         user-select: none;
+
+        &.win {
+          color: rgb(20, 245, 12);
+          transition: color .5s linear;
+        }
       }
     }
   }

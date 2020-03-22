@@ -12,12 +12,12 @@
 <div class="container">
   <div class="tic-tac-toe">
     <div
-      *ngFor="let value of boxModel; let pos = index"
+      *ngFor="let box of boxModel; let pos = index"
       class="box"
       (click)="play(pos)"
     >
-      <span *ngIf="value === null"></span>
-      <span class="box-value" *ngIf="value !== null">{{ value }}</span>
+      <span *ngIf="box.value === null"></span>
+      <span class="box-value" *ngIf="box.value !== null" [class.win]="box.win">{{ box.value }}</span>
     </div>
   </div>
 </div>

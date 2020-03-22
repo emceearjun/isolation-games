@@ -13,11 +13,20 @@ export class TicTacToeComponent implements OnInit {
   readonly O = "O";
   readonly EMPTY = null;
 
-  boxModel = [null, null, null, null, null, null, null, null, null];
+  boxModel = [
+    { value: null, win: false },
+    { value: null, win: false },
+    { value: null, win: false },
+    { value: null, win: false },
+    { value: null, win: false },
+    { value: null, win: false },
+    { value: null, win: false },
+    { value: null, win: false },
+    { value: null, win: false }
+  ];
   currentTurn = this.X;
   winner = this.EMPTY;
   gameOver = false;
-  elapsedTime = Date.now().toLocaleString();
   winPatterns = [
     [0, 1, 2],
     [3, 4, 5],
@@ -51,7 +60,10 @@ export class TicTacToeComponent implements OnInit {
   // Reset the game state
   reset() {
     this.boxModel = this.boxModel.map(box => {
-      return this.EMPTY;
+      return {
+        value: this.EMPTY,
+        win: false
+      };
     });
     this.currentTurn = this.X;
     this.winner = this.EMPTY;
@@ -61,7 +73,7 @@ export class TicTacToeComponent implements OnInit {
 
   // Set the value of the square at the selected position for the current turn
   private putValue(position: number) {
-    this.boxModel[position] = this.currentTurn;
+    this.boxModel[position].value = this.currentTurn;
   }
 
   // Check if a position has a valid value
@@ -91,7 +103,7 @@ export class TicTacToeComponent implements OnInit {
     if (position >= this.boxModel.length) {
       return undefined;
     } else {
-      return this.boxModel[position];
+      return this.boxModel[position].value;
     }
   }
 
@@ -100,7 +112,7 @@ export class TicTacToeComponent implements OnInit {
     this.winPatterns.forEach(this.checkPattern);
 
     // Check for draw and finish game if no winner
-    if (!this.boxModel.includes(null) && !this.winner) {
+    if (!this.hasEmptyBox() && !this.winner) {
       this.finishGame();
       return;
     }
@@ -109,11 +121,14 @@ export class TicTacToeComponent implements OnInit {
   // Check if any boxes match the win pattern and declare winner
   private checkPattern = (pattern: number[]) => {
     if (
-      this.boxModel[pattern[0]] !== null &&
-      this.boxModel[pattern[0]] === this.boxModel[pattern[1]] &&
-      this.boxModel[pattern[1]] === this.boxModel[pattern[2]]
+      this.boxModel[pattern[0]].value !== null &&
+      this.boxModel[pattern[0]].value === this.boxModel[pattern[1]].value &&
+      this.boxModel[pattern[1]].value === this.boxModel[pattern[2]].value
     ) {
-      this.winner = this.boxModel[pattern[0]];
+      this.winner = this.boxModel[pattern[0]].value;
+      this.boxModel[pattern[0]].win = true;
+      this.boxModel[pattern[1]].win = true;
+      this.boxModel[pattern[2]].win = true;
       this.finishGame();
       return;
     }
@@ -122,5 +137,17 @@ export class TicTacToeComponent implements OnInit {
   private finishGame() {
     this.gameOver = true;
     this.timer.stop();
+  }
+
+  private hasEmptyBox() {
+    let emptyBox = false;
+    this.boxModel.forEach(box => {
+      if (!box.value) {
+        emptyBox = true;
+        return;
+      }
+    });
+
+    return emptyBox;
   }
 }
